@@ -1,0 +1,27 @@
+{% extends 'pages/base.html' %}
+{% load static %}
+
+{% block content %}
+<main>
+    <div class="container-fluid">
+        <div class="row my-4">
+            <div class="col-7 border rounded m-2">
+                <img src="{{producto.imagen.url}}" alt="" class="img-fluid">
+            </div>
+            <div class="col-4 ">
+                <div class="container border rounded p-2">
+                    <small class="text-secondary">Nombre: </small>
+                    <h1>{{producto.titulo}}</h1>
+                    <small class="text-secondary">Precio: </small>
+                    <h3>$ {{producto.precio}}</h3>
+                    <small class="text-secondary">Descripción: </small>
+                    <p>{{producto.descripcion}}</p>
+                    <div class="d-grid gap-2">
+                        <button data-producto={{producto.id}} data-action="add" class="btn btn-dark add-btn update-cart">Comprar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

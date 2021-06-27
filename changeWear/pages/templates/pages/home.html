@@ -1,0 +1,80 @@
+{% extends 'pages/base.html' %}
+{% load static %}
+
+{% block content %}
+<main>
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner" id="carousel">
+            <div class="carousel-item active">
+            <img src="{% static 'img/carousel/1.jpg'%}" class="carousel-img" alt="..." >
+            </div>
+            <div class="carousel-item">
+            <img src="{% static 'img/carousel/4.jpg'%}" class="carousel-img" alt="...">
+            </div>
+            <div class="carousel-item">
+            <img src="{% static 'img/carousel/3.jpg'%}" class="carousel-img" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <div class="d-flex justify-content-center my-4">
+        <h2 class="display-4">Colecciones</h2>
+    </div>
+    <div class="container mx-auto">
+        
+        <div class="container my-2">
+            <div class="row">
+                <div class="col-sm-12 col-md-4 col-lg-4 ">
+                    <div class="card bg-dark text-white">
+                        <img src="{% static 'img/mujer.jpg'%}" class="card-img" alt="">
+                        <div class="card-img-overlay">
+                            <a href="{% url 'mujer_page'%}" class="text-decoration-none stretched-link">
+                                <h1 class="card-title bg-secondary p-2 display-4 text-white">
+                                    Mujer
+                                </h1>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4 col-lg-4 ">
+                    <div class="card bg-dark text-white ">
+                        <img src="{% static 'img/hombre.jpg'%}" class="img-fluid" alt="">
+                        <div class="card-img-overlay">
+                            <a href="{% url 'hombre_page'%}" class="text-decoration-none stretched-link">
+                                <h1 class="card-title bg-secondary p-2 display-5 text-white">
+                                    Hombre
+                                </h1>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4 col-lg-4 ">
+                    <div class="card bg-dark text-white ">
+                        <img src="{% static 'img/ninos.jpg'%}" class="card-img " alt="">
+                        <div class="card-img-overlay">
+                            <a href="{% url 'nino_page'%}" class="text-decoration-none stretched-link">
+                                <h1 class="card-title bg-secondary p-2 display-4 text-white">
+                                    Niños
+                                </h1>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-center my-3">
+            <h1 class="mx-auto">Novedades</h1>
+        </div>
+    </div>
+</main>
+
+
+{% endblock %}
