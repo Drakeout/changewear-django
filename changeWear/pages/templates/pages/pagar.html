@@ -1,0 +1,20 @@
+{% extends 'pages/base.html' %}
+{% load static %}
+
+{% block content %}
+<main>
+    <div class="container">
+        <h1 class="display-3">Pagar</h1>
+        <hr>
+        <div class="row">
+            <div class="col-6 border rounded p-2">
+                <h4>Cantidad de productos: {{compra.get_comprar_productos}}</h4>
+                <h4>Total: {{compra.get_comprar_total}}</h4>
+            </div>
+            <div class="col-6 my-auto">
+                <a href="" class="btn btn-primary ">Pagar</a>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
