@@ -28,9 +28,11 @@ urlpatterns = [
 
     path('registrarse/', registrarse_page, name='registrarse_page'),
     path('login/', login_page, name='login_page'),
+    path('logout/', logout_user, name='logout_user'),
     path('carro/', carro_page, name='carro_page'),
     path('pagar/', pagar_page, name='pagar_page'),
     path('update_item/', updateItem, name='update_item'),
+    path('user/<action>/', user_page, name='user_page'),
 
     path('admin/', admin.site.urls),
 

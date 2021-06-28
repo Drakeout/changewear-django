@@ -10,16 +10,20 @@
         <div class="container ">
             {% for item in items %}
             <div class="row my-3 border p-2 rounded shadow-sm ">
-                <div class="col my-2">
+                <div class="col-3 my-auto">
+                    <img src="{{item.producto.imagen.url}}" alt="" class="img-fluid">
+                </div>
+                <div class="col-5 my-auto">
                     <h3>{{item.producto.titulo}}</h3>
                     <h5>{{item.producto.descripcion}}</h5>
                     
                 </div>
-                <div class="col-2 my-2">
+                <div class="col-2 my-auto">
                     <label for="cantidad" class="form-label">Cantidad</label>
+                    <!-- CAMBIAR ESTO  -->
                     <input type="number" name="cantidad" id="cantidad" class="form-control" value="{{item.cantidad}}">
                 </div>
-                <div class="col-3 my-2">
+                <div class="col-2 my-auto">
                     <h4>Precio</h4>
                     <h5>$ {{item.get_total}} </h5>
                 </div>

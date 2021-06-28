@@ -56,6 +56,12 @@ class Compra(models.Model):
         total = sum([item.cantidad for item in productos])
         return total
 
+    @property
+    def get_productos(self):
+        productos = self.productocompra_set.all()
+        nombre = [item.ret_nombre for item in productos]
+        return nombre
+
 class ProductoCompra(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.SET_NULL, blank=True, null=True)
     compra = models.ForeignKey(Compra, on_delete=models.SET_NULL, blank=True, null=True)
@@ -71,6 +77,10 @@ class ProductoCompra(models.Model):
         total = int(self.producto.precio) * self.cantidad
         return total
 
+    @property
+    def ret_nombre(self):
+        return self.producto.titulo
+
 class DireccionEnvio(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.SET_NULL, blank=True, null=True)
     compra = models.ForeignKey(Compra, on_delete=models.SET_NULL, blank=True, null=True)
@@ -78,6 +88,8 @@ class DireccionEnvio(models.Model):
     region = models.CharField(max_length=200, null=True)
     comuna = models.CharField(max_length=200, null=True)
     fecha_agregado = models.DateTimeField(auto_now_add=True)
+    entregado = models.BooleanField(default=False, null=True, blank=False)
+    
     
     def __str__(self):
         return str('Cliente: '+self.cliente.usuario.username + '- Dirección: ' + self.direccion)

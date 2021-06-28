@@ -1,1 +1,2 @@
-1- 
+1- carro cambiar boton de add o desc
+2- Terminar bien el pagar, para guardar el estado y la info

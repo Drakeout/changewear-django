@@ -10,6 +10,8 @@ from django.contrib.auth.models import Group
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
 import json
+from core.decorators import *
+
 # Create your views here.
 
 def home_page(request):
@@ -135,6 +137,7 @@ def registrarse_page(request):
     context = {'formUser': form1, 'formCliente': form2}
     return render(request, 'pages/register.html', context)
 
+@usuario_identificado
 def login_page(request):
     context = {}
 
@@ -157,6 +160,12 @@ def login_page(request):
     return render(request, 'pages/login.html', context)
 
 
+def logout_user(request):
+    logout(request)
+    return redirect('login_page') 
+
+
+
 #TO-DO: Agregar condición para logeado y para clientes con decoradores
 @login_required(login_url='home_page')
 def carro_page(request):
@@ -175,22 +184,27 @@ def carro_page(request):
     context = {'items': items, 'compra': compra, 'carro':carro}
     return render(request, 'pages/carro.html', context)
 
+@login_required(login_url='home_page')
 def pagar_page(request):
     #TO-DO: Agregar try and catch para cada variable, excepto cliente
     cliente = request.user.cliente
     compra, creada = Compra.objects.get_or_create(cliente=cliente, completado=False)
     items = compra.productocompra_set.all()
+    form = DireeccionForm()
+
+    if request.method == 'POST':
+        compra_comp = Compra.objects.filter(id=compra.id).update(completado=True)
+        messages.success(request, 'Producto comprado')
+
    
     
-    context = {'items': items, 'compra': compra}
+    context = {'items': items, 'compra': compra, 'form': form}
     return render(request, 'pages/pagar.html', context)
 
 def updateItem(request):
     data = json.loads(request.body)
     productoId = data['productId']
     action = data['action']
-
-    print(productoId, action)
 
     cliente = request.user.cliente
     producto = Producto.objects.get(id=productoId)
@@ -210,3 +224,21 @@ def updateItem(request):
 
     return JsonResponse('Item fue añadido', safe=False)
 
+
+def user_page(request, action):
+    context = {}
+    cliente = request.user.cliente
+    context['cliente'] = cliente
+    compras = Compra.objects.all().filter(cliente=cliente)
+    context['compras'] = compras
+ 
+
+
+    try: 
+        compras_completas = DireccionEnvio.objects.all().filter(cliente=cliente,entregado=True)
+        context['compras_completas'] = compras_completas
+    except:
+        context['compras_completas'] = None
+
+
+    return render(request, 'pages/user.html', context)

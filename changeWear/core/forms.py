@@ -20,3 +20,8 @@ class ProductoForm(forms.ModelForm):
     class Meta:
         model = Producto
         fields = '__all__'
+
+class DireeccionForm(forms.ModelForm):
+    class Meta:
+        model = DireccionEnvio
+        fields = ['direccion', 'region', 'comuna']

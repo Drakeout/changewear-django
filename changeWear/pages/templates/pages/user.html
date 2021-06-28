@@ -1,0 +1,117 @@
+{% extends 'pages/base.html' %}
+{% load static %}
+
+{% block content %}
+<main>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                    <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                        <i class="fas fa-user fa-lg mx-auto me-2"></i>
+                        <span class="fs-5 d-none d-sm-inline">{{cliente}}</span>
+                    </a>
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                        <li class="nav-item">
+                            <a href="{% url 'user_page' 'inicio' %}" class="nav-link align-middle px-0">
+                                <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline text-white">Inicio</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'user_page' 'compras' %}" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline text-white">Compras</span></a>
+                        </li>
+                        <li>
+                            <a href="{% url 'user_page' 'envios' %}" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline text-white">Envios</span></a>
+                        </li>
+                        
+                        <li>
+                            <a href="{% url 'user_page' 'perfil' %}" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline text-white">Perfil</span> </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+            <div class="col">
+                <div class="container my-3">
+                    {% if 'inicio' in request.path %}
+                    <!-- Pagina Inicio -->
+                        <h1 class="display-3 pb-2">Inicio</h1>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="container border rounded-2 p-2 shadow-sm">
+                                        <div class="ms-2">
+                                            <a href="#" class="text-dark text-decoration-none">
+                                                <div class="d-flex justify-content-around">
+                                                    <h1 class="display-2 ">{{compras.count|default_if_none:"0"}}</h1>
+                                                    <i class="fas fa-shopping-cart fa-2x my-auto me-2"></i>
+                                                </div>
+                                                <small>Compras</small>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="container border rounded-2 p-2 shadow-sm">
+                                        <div class="ms-2">
+                                            <a href="#" class="text-dark text-decoration-none">
+                                                <div class="d-flex justify-content-around">
+                                                    <h1 class="display-2 ">{{compras_completas.count|default_if_none:"0"}}</h1>
+                                                    <i class="fas fa-clipboard-check fa-2x my-auto me-2"></i>
+                                                </div>
+                                                <small>Envios</small>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="container border rounded shadow mx-2 m-2">
+                            <h2 class="my-3">Ultima compra realizada</h2>
+                            <table class="table py-2">
+                                <thead>
+                                    <tr>
+                                        <th>Productos</th>
+                                        <th>Total</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            {%for nombre in compras_completas.0.compra.get_productos%}
+                                                {{nombre}}
+                                            {% endfor %}
+                                        </td>
+                                        <td>${{compras.0.get_comprar_total}}</td>
+                                        <td>{{compras_completas.0.entregado}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                        </div>
+                    {% elif 'compras' in request.path %}
+                    <!-- Pagina compras -->
+                        <div class="container">
+                            {%for compra in compras%}
+                                {{compra.productocompra}}
+                            {%endfor%}
+                        </div>
+                    {% elif 'envios' in request.path %}
+                    <!-- Pagina envios -->
+                    {% elif 'perfil' in request.path %}
+                    <!-- paginas perfil -->
+                    {% else %}
+                        <h1 class="display-1 text-danger">Ésta página no existe</h1>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

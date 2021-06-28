@@ -5,15 +5,24 @@
 <main>
     <div class="container">
         <h1 class="display-3">Pagar</h1>
-        <hr>
         <div class="row">
             <div class="col-6 border rounded p-2">
                 <h4>Cantidad de productos: {{compra.get_comprar_productos}}</h4>
                 <h4>Total: {{compra.get_comprar_total}}</h4>
             </div>
             <div class="col-6 my-auto">
-                <a href="" class="btn btn-primary ">Pagar</a>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{form.as_p}}
+                    <input type="submit" value="Pagar" class="btn btn-primary">
+                </form>
             </div>
+            {% for message in messages%}
+            <div class="alert alert-{{message.tags}} my-3" role="alert">
+                {{message}}
+            </div>
+            
+            {% endfor %}
         </div>
     </div>
 </main>
