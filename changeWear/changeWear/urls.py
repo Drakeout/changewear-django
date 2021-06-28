@@ -34,6 +34,10 @@ urlpatterns = [
     path('update_item/', updateItem, name='update_item'),
     path('user/<action>/', user_page, name='user_page'),
 
+    path('vision/', vision_page, name='vision_page'),
+    path('contacto/', contacto_page, name='contacto_page'),
+    path('empleo/', empleo_page, name='empleo_page'),
+
     path('admin/', admin.site.urls),
 
 ]

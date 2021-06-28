@@ -1,0 +1,43 @@
+<footer class="bg-dark text-white my-0 mx-0 pt-4 pb-2 main-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md">
+          <!--
+              <img src="../img/logo.png" class="logo" alt="" />
+              <img src="{'img/logo.png'}" class="logo" alt=""/>
+            -->
+        </div>
+        <div class="col-md">
+          <h6 class="text-uppercase text-warning">Sobre nosotros</h6>
+          <ul class="mb-0 pb-2">
+              <!-- TODO : Links cuando las paginas esten listas-->
+            <li class="text">
+              <a class="nav-link" href="{% url 'vision_page'%}">Nuestra visión</a>
+            </li>
+            <li class="text">
+              <a class="nav-link" href="{% url 'empleo_page'%}">Empleo</a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md">
+          <h6 class="text-uppercase text-warning">Obtener ayuda</h6>
+          <ul class="mb-0 pb-2">
+            <li class="text">
+              <a class="nav-link" href="{% url 'contacto_page'%}">Contáctanos</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <hr class="footer-hr my-2 py-0" />
+      <div class="row">
+        <div class="col-4 text-left">
+          <i class="fab fa-twitter mx-1 text-info"></i>
+          <i class="fab fa-facebook-f mx-1 text-info"></i>
+          <i class="fab fa-instagram mx-1 text-info"></i>
+        </div>
+        <div class="col-8 text-right copyright">
+          Todos los derechos reservados.
+        </div>
+      </div>
+    </div>
+  </footer>
