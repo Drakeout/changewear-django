@@ -185,6 +185,57 @@ def pagar_page(request):
     context = {'items': items, 'compra': compra}
     return render(request, 'pages/pagar.html', context)
 
+def vision_page(request):
+    context = {}
+
+    try:
+        cliente = request.user.cliente
+        compra, creada = Compra.objects.get_or_create(cliente=cliente, completado=False)
+        items = compra.productocompra_set.all()
+        carro = compra.get_comprar_productos
+        context['carro'] = carro
+        context['items'] = items
+    except:
+        carro = None
+        items = None
+
+    return render(request, 'pages/vision.html', context)
+
+
+#TO-DO: datos de formularios para Empleo y Contacto
+
+def contacto_page(request):
+    context = {}
+
+    try:
+        cliente = request.user.cliente
+        compra, creada = Compra.objects.get_or_create(cliente=cliente, completado=False)
+        items = compra.productocompra_set.all()
+        carro = compra.get_comprar_productos
+        context['carro'] = carro
+        context['items'] = items
+    except:
+        carro = None
+        items = None
+
+    return render(request, 'pages/contacto.html', context)
+
+def empleo_page(request):
+    context = {}
+
+    try:
+        cliente = request.user.cliente
+        compra, creada = Compra.objects.get_or_create(cliente=cliente, completado=False)
+        items = compra.productocompra_set.all()
+        carro = compra.get_comprar_productos
+        context['carro'] = carro
+        context['items'] = items
+    except:
+        carro = None
+        items = None
+
+    return render(request, 'pages/empleo.html', context)
+
 def updateItem(request):
     data = json.loads(request.body)
     productoId = data['productId']
