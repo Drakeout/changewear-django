@@ -9,8 +9,8 @@
         </div>
         <div class="container ">
             {% for item in items %}
-            <div class="row my-3 border p-2 rounded shadow-sm ">
-                <div class="col-3 my-auto">
+            <div class="row my-3 border p-2 rounded shadow-sm d-flex justify-content-center">
+                <div class="col-sm-3 col-md-3 col-lg-2 my-auto">
                     <img src="{{item.producto.imagen.url}}" alt="" class="img-fluid">
                 </div>
                 <div class="col-5 my-auto">
@@ -19,12 +19,15 @@
                     
                 </div>
                 <div class="col-2 my-auto">
-                    <label for="cantidad" class="form-label">Cantidad</label>
-                    <!-- CAMBIAR ESTO  -->
-                    <input type="number" name="cantidad" id="cantidad" class="form-control" value="{{item.cantidad}}">
+                    <h4>Cantidad</h4>
+                    <div class="d-flex flex-row">
+                        <button data-producto={{item.producto.id}} data-action="remove" class="btn btn-secondary btn-sm add-btn update-cart mx-1">-</button>
+                        <div class="p-2 border  rounded">{{item.cantidad}}</div>
+                        <button data-producto={{item.producto.id}} data-action="add" class="btn btn-secondary btn-sm add-btn update-cart mx-1">+</button>
+                    </div>
                 </div>
                 <div class="col-2 my-auto">
-                    <h4>Precio</h4>
+                    <h3>Precio</h3>
                     <h5>$ {{item.get_total}} </h5>
                 </div>
             </div>
@@ -32,14 +35,14 @@
         </div>
         <hr>
 
-        <div class="d-flex justify-content-evenly my-4">
-            <div class="container-fluid">
+        <div class="d-flex justify-content-around my-4">
+            <div class="d-flex flex-column">
                 <h1>Total: ${{compra.get_comprar_total}}</h1>
                 <h2>Cantidad: {{compra.get_comprar_productos}}</h2>
                 <small>Envío: $ 000 </small>
             </div>
-            <div class="container-fluid my-auto ">
-                <a class="btn btn-primary btn-lg mx-auto" href="{% url 'direccion_page' compra.id%}">Pagar</a>
+            <div class="d-flex my-auto ">
+                <a class="btn btn-primary btn-lg" href="{% url 'direccion_page' compra.id%}">Pagar</a>
             </div>
         </div>
     </div>

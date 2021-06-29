@@ -1,2 +1,3 @@
-1- carro cambiar boton de add o desc
-2- Agregar regiones y comunas en envio
+1- Agregar texto a carousel
+2- Agregar regiones y comunas en envio js
+3- Actualizar checkout https://www.w3schools.com/howto/howto_css_checkout_form.asp

@@ -30,8 +30,8 @@
     <div class="container mx-auto">
         
         <div class="container my-2">
-            <div class="row">
-                <div class="col-sm-12 col-md-4 col-lg-4 ">
+            <div class="row justify-content-center">
+                <div class="col-sm-12 col-md-4 col-lg-2 ">
                     <div class="card bg-dark text-white">
                         <img src="{% static 'img/mujer.jpg'%}" class="card-img" alt="">
                         <div class="card-img-overlay">
@@ -43,7 +43,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-4 col-lg-4 ">
+                <div class="col-sm-12 col-md-4 col-lg-2 ">
                     <div class="card bg-dark text-white ">
                         <img src="{% static 'img/hombre.jpg'%}" class="img-fluid" alt="">
                         <div class="card-img-overlay">
@@ -55,7 +55,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-4 col-lg-4 ">
+                <div class="col-sm-12 col-md-4 col-lg-2 ">
                     <div class="card bg-dark text-white ">
                         <img src="{% static 'img/ninos.jpg'%}" class="card-img " alt="">
                         <div class="card-img-overlay">
@@ -71,7 +71,25 @@
         </div>
         <hr>
         <div class="d-flex justify-content-center my-3">
-            <h1 class="mx-auto">Novedades</h1>
+            <div class="d-flex flex-column">
+                <h1 class="mx-auto my-3">Novedades</h1>
+                <div class="container">
+                    <div class="row">
+                        {% for producto in productos%}
+                            <div class="col-4">
+                                <div class="card border shadow-sm m-2">
+                                    <img src="{{producto.imagen.url}}" alt="">
+                                    <div class="card-body">
+                                        <h2 class="card-title">{{producto.titulo}}</h2>
+                                        <p class="card-text">$ {{producto.precio}}</p>
+                                        <a href="{% url 'producto_page' producto.id%}" class="stretched-link"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </main>

@@ -3,12 +3,23 @@
 
 {% block content %}
 <main>
-    <div class="container">
-        <form action="" method="POST">
-            {% csrf_token %}
-            {{form.as_p}}
-            <input type="submit" value="Agregar">
-        </form>
+    <div class="container py-4">
+        <div class="container-fluid rounded border shadow m-2">
+            <h1 class="display-3 my-3">Dirección de Envío</h1>
+            <form action="" method="POST">
+                <div class="d-flex flex-column">
+                    {% csrf_token %}
+
+                    <label for="{{form.direccion.name}}" class="form-label">Dirección</label>
+                    {{form.direccion}}
+                    <label for="{{form.region.name}}" class="form-label">Región</label>
+                    {{form.region}}
+                    <label for="{{form.comuna.name}}" class="form-label">Comuna</label>
+                    {{form.comuna}}
+                    <input type="submit" value="Agregar" class="btn btn-primary my-4">
+                    </div>
+            </form>
+        </div>
         {% for message in messages%}
         <div class="alert alert-{{message.tags}}" role="alert">
             {{message}}

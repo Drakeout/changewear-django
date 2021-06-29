@@ -11,11 +11,14 @@ from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
 import json
 from core.decorators import *
-
+import random
 # Create your views here.
 
 def home_page(request):
     context = {}
+    producto = list(Producto.objects.all())
+    random_producto = random.sample(producto, 3)
+    context['productos'] = random_producto
     try:
         cliente = request.user.cliente
         compra, creada = Compra.objects.get_or_create(cliente=cliente, completado=False)
@@ -306,7 +309,18 @@ def user_page(request, action):
     context['compras'] = compras
     envios = DireccionEnvio.objects.all().filter(cliente=cliente)
     context['envios'] = envios
- 
+    
+    # mecanica carro
+    try:
+        cliente = request.user.cliente
+        compra, creada = Compra.objects.get_or_create(cliente=cliente, completado=False)
+        items = compra.productocompra_set.all()
+        carro = compra.get_comprar_productos
+        context['carro'] = carro
+        context['items'] = items
+    except:
+        carro = None
+        items = None
     
     try: 
         compras_completas = DireccionEnvio.objects.all().filter(cliente=cliente,entregado=True)

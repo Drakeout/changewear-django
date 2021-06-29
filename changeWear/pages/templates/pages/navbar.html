@@ -13,10 +13,10 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'mujer_page'%}">Mujeres</a>
+        <a class="nav-link" href="{% url 'mujer_page'%}">Mujer</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'hombre_page'%}">Hombres</a>
+        <a class="nav-link" href="{% url 'hombre_page'%}">Hombre</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{% url 'nino_page'%}">Niños</a>
@@ -37,10 +37,11 @@
             {% if items == None%}
             <a class="dropdown-item" href="#">Sin productos</a>
             {%else%}
+
               {% for item in items%}
                 <a class="dropdown-item d-flex" href="{% url 'producto_page' item.producto.id %}">
                   <div class="me-2">{{item.cantidad}}</div>
-                  <div class="">{{item.producto.titulo}}</div>
+                  <div class="">{{item.producto.titulo}} </div>
                   <div class="ms-auto">${{item.producto.precio}}</div>
                 </a>
               {% endfor %}
