@@ -1,3 +1,4 @@
 1- Agregar texto a carousel
 2- Agregar regiones y comunas en envio js
+4- Validaciones jquery
 3- Actualizar checkout https://www.w3schools.com/howto/howto_css_checkout_form.asp
