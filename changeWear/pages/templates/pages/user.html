@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
                 <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                    <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <a href="{% url 'user_page' 'perfil' %}" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                         <i class="fas fa-user fa-lg mx-auto me-2"></i>
                         <span class="fs-5 d-none d-sm-inline">{{cliente}}</span>
                     </a>
@@ -49,7 +49,7 @@
                                                     <h1 class="display-2 ">{{compras.count|default_if_none:"0"}}</h1>
                                                     <i class="fas fa-shopping-cart fa-2x my-auto me-2"></i>
                                                 </div>
-                                                <small>Compras</small>
+                                                <small>Compras realizadas</small>
                                             </a>
                                         </div>
                                     </div>
@@ -62,7 +62,7 @@
                                                     <h1 class="display-2 ">{{compras_completas.count|default_if_none:"0"}}</h1>
                                                     <i class="fas fa-clipboard-check fa-2x my-auto me-2"></i>
                                                 </div>
-                                                <small>Envios</small>
+                                                <small>Compras completadas</small>
                                             </a>
                                         </div>
                                     </div>
@@ -81,6 +81,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {% if compras%}
                                     <tr>
                                         <td>
                                             {%for nombre in compras_completas.0.compra.get_productos%}
@@ -90,21 +91,90 @@
                                         <td>${{compras.0.get_comprar_total}}</td>
                                         <td>{{compras_completas.0.entregado}}</td>
                                     </tr>
+                                    {%else%}
+                                    <tr>
+                                        <td>Sin compras realizadas</td>
+                                    </tr>
+                                    {%endif%}
                                 </tbody>
                             </table>
                             
                         </div>
                     {% elif 'compras' in request.path %}
                     <!-- Pagina compras -->
-                        <div class="container">
-                            {%for compra in compras%}
-                                {{compra.productocompra}}
-                            {%endfor%}
+                        <div class="container border rounded shadow">
+                            <h2 class="display-3 my-2">Listado de compras</h2>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Productos</th>
+                                        <th>Fecha</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {%for compra in compras%}
+                                    <tr>
+                                        <td>{{compra.id}}</td>
+                                        <td>
+                                            {%for nombre in compra.get_productos%}
+                                                {{nombre}}-
+                                            {% endfor %}
+                                        </td>
+                                        <td>{{compra.fecha|date:'d M Y'}}</td>
+                                        <td>{{compra.get_comprar_total}}</td>
+                                    </tr>
+                                    {%endfor%}
+
+                                </tbody>
+                            </table>
                         </div>
                     {% elif 'envios' in request.path %}
                     <!-- Pagina envios -->
+                    <div class="container border rounded shadow">
+                        <h2 class="display-3 my-2">Listado de envios</h2>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Fecha</th>
+                                    <th>Region</th>
+                                    <th>Comuna</th>
+                                    <th>Dirección</th>
+                                    <th>Entregado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {%for envio in envios%}
+                                <tr>
+                                    <td>{{envio.id}}</td>
+                                    <td>{{envio.fecha_agregado|date:'d M Y'}}</td>
+                                    <td>{{envio.region}}</td>
+                                    <td>{{envio.comuna}}</td>
+                                    <td>{{envio.direccion}}</td>
+                                    <td>{{envio.entregado}}</td>
+                                </tr>
+                                {%endfor%}
+
+                            </tbody>
+                        </table>
+                    </div>
                     {% elif 'perfil' in request.path %}
                     <!-- paginas perfil -->
+                    <div class="container border rounded shadow">
+                        <h1 class="display-3 my-2 ">Información Personal</h1>
+                        <div class="container py-2">
+                            <small>Nombre</small>
+                            <h4>{{cliente}}</h4>
+                            <small>Apellidos</small>
+                            <h4>{{cliente.apellido_paterno}} {{cliente.apellido_materno}}</h4>
+                            <small>Correo</small>
+                            <h4>{{request.user.email}}</h4>
+                            <small>Número</small>
+                            <h4>+{{cliente.telefono}}</h4>
+                        </div>
+                    </div>
                     {% else %}
                         <h1 class="display-1 text-danger">Ésta página no existe</h1>
                     {% endif %}

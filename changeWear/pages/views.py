@@ -20,6 +20,7 @@ def home_page(request):
         cliente = request.user.cliente
         compra, creada = Compra.objects.get_or_create(cliente=cliente, completado=False)
         items = compra.productocompra_set.all()
+        
         carro = compra.get_comprar_productos
         context['carro'] = carro
         context['items'] = items
@@ -131,6 +132,7 @@ def registrarse_page(request):
             )
 
             messages.success(request, 'Cuenta creada con exito')
+            return redirect('login_page')
         else:
             messages.error(request, 'La cuenta no pudo ser creada')
 
@@ -169,7 +171,6 @@ def logout_user(request):
 #TO-DO: Agregar condición para logeado y para clientes con decoradores
 @login_required(login_url='home_page')
 def carro_page(request):
-    #TO-DO: Agregar try and catch para cada variable, excepto cliente
     cliente = request.user.cliente
     compra, creada = Compra.objects.get_or_create(cliente=cliente, completado=False)
     items = compra.productocompra_set.all()
@@ -184,13 +185,34 @@ def carro_page(request):
     context = {'items': items, 'compra': compra, 'carro':carro}
     return render(request, 'pages/carro.html', context)
 
+
+def direccion_page(request, pk):
+    form = DireeccionForm()
+    compra = Compra.objects.get(id=pk)
+    cliente = request.user.cliente
+
+    if request.method == 'POST':
+        form = DireeccionForm(request.POST)
+        if form.is_valid():
+            form.instance.cliente = cliente
+            form.instance.compra = compra
+            form.save()
+
+            messages.success(request, 'Direccion agregada')
+
+            return redirect('pagar_page')
+        else:
+            messages.error(request, 'No se pudo agregar la dirección')
+
+    context = {'form': form}
+    return render(request, 'pages/direccion.html', context)
+
 @login_required(login_url='home_page')
 def pagar_page(request):
     #TO-DO: Agregar try and catch para cada variable, excepto cliente
     cliente = request.user.cliente
     compra, creada = Compra.objects.get_or_create(cliente=cliente, completado=False)
     items = compra.productocompra_set.all()
-    form = DireeccionForm()
 
     if request.method == 'POST':
         compra_comp = Compra.objects.filter(id=compra.id).update(completado=True)
@@ -198,7 +220,7 @@ def pagar_page(request):
 
    
     
-    context = {'items': items, 'compra': compra, 'form': form}
+    context = {'items': items, 'compra': compra}
     return render(request, 'pages/pagar.html', context)
 
 def vision_page(request):
@@ -280,11 +302,12 @@ def user_page(request, action):
     context = {}
     cliente = request.user.cliente
     context['cliente'] = cliente
-    compras = Compra.objects.all().filter(cliente=cliente)
+    compras = Compra.objects.all().filter(cliente=cliente, completado=True)
     context['compras'] = compras
+    envios = DireccionEnvio.objects.all().filter(cliente=cliente)
+    context['envios'] = envios
  
-
-
+    
     try: 
         compras_completas = DireccionEnvio.objects.all().filter(cliente=cliente,entregado=True)
         context['compras_completas'] = compras_completas
