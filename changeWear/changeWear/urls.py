@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.urls.conf import include
 from pages.views import *
 from django.conf import settings
 from django.conf.urls.static import static
@@ -39,6 +40,8 @@ urlpatterns = [
     path('contacto/', contacto_page, name='contacto_page'),
     path('empleo/', empleo_page, name='empleo_page'),
 
+    # api
+    path('api/', include('api.urls')),
     path('admin/', admin.site.urls),
 
 ]
