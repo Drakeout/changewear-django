@@ -13,6 +13,7 @@ from .serializers import ProductoSerializer
 # Create your views here.
 # @csrf_exempt
 @api_view(['GET', 'POST'])
+# Todos los productos
 def productos_ser(request):
 
     if request.method == 'GET':
@@ -29,6 +30,7 @@ def productos_ser(request):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
+# Por categoria
 def categoria_producto(request, pk):
     try:
         categoria = Producto.objects.filter(categoria = pk)

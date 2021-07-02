@@ -21,6 +21,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    # Url de toda la aplicación, incluyendo la api
     path('', home_page, name='home_page'),
     path('mujer/', mujer_page, name='mujer_page'),
     path('hombre/', hombre_page, name='hombre_page'),
