@@ -16,9 +16,6 @@ import random
 
 def home_page(request):
     context = {}
-    producto = list(Producto.objects.all())
-    random_producto = random.sample(producto, 3)
-    context['productos'] = random_producto
     try:
         cliente = request.user.cliente
         compra, creada = Compra.objects.get_or_create(cliente=cliente, completado=False)
@@ -36,7 +33,6 @@ def home_page(request):
 
     
 def mujer_page(request):
-    productos = Producto.objects.all().filter(categoria='MJ')
 
     context = {}
     try:
@@ -50,13 +46,11 @@ def mujer_page(request):
         carro = None
         items = None
 
-    context['productos'] = productos
     context['nombre'] = 'Mujer'
 
     return render(request, 'pages/categoria.html', context)
 
 def hombre_page(request):
-    productos = Producto.objects.all().filter(categoria='HM')
     context = {}
     try:
         cliente = request.user.cliente
@@ -69,13 +63,11 @@ def hombre_page(request):
         carro = None
         items = None
 
-    context['productos'] = productos
     context['nombre'] = 'Hombre'
 
     return render(request, 'pages/categoria.html', context)
 
 def nino_page(request):
-    productos = Producto.objects.all().filter(categoria='NN')
     context = {}
     try:
         cliente = request.user.cliente
@@ -88,7 +80,6 @@ def nino_page(request):
         carro = None
         items = None
 
-    context['productos'] = productos
     context['nombre'] = 'Niños'
 
     return render(request, 'pages/categoria.html', context)
