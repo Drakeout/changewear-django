@@ -28,5 +28,14 @@ def productos_ser(request):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET'])
+def categoria_producto(request, pk):
+    try:
+        categoria = Producto.objects.filter(categoria = pk)
+    except Producto.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
-    
+    if request.method == 'GET':
+        
+        serializers = ProductoSerializer(categoria, many=True)
+        return Response(serializers.data) 

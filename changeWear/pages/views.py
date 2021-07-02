@@ -31,7 +31,6 @@ def home_page(request):
         carro = None
         items = None
     
-
     
     return render(request, 'pages/home.html', context)
 

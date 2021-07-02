@@ -5,5 +5,6 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from .views import *
 
 urlpatterns = [
-    re_path('productos/', productos_ser),
+    path('productos/', productos_ser),
+    path('categoria/<pk>', categoria_producto, name='categoria_producto'),
 ]
