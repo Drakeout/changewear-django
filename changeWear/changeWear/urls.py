@@ -43,6 +43,7 @@ urlpatterns = [
 
     # admin
     path('func/<action>/', admin_page, name='admin_page'),
+    path('func-producto/<str:pk>', crud_producto, name='crud_producto'),
 
     # api
     path('api/', include('api.urls')),
