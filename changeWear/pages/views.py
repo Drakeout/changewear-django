@@ -320,3 +320,21 @@ def user_page(request, action):
 
 
     return render(request, 'pages/user.html', context)
+
+def admin_page(request, action):
+    context = {}
+    envios = DireccionEnvio.objects.all()
+    context['envios'] = envios
+    compras = Compra.objects.all().filter(completado=True)
+    context['compras'] = compras
+    productos = Producto.objects.all()
+    context['productos'] = productos
+
+    if action == 'inicio':
+        context['nombre'] = 'Inicio'
+    elif action == 'productos':
+        context['nombre'] = 'Productos'
+    elif action == 'envios':
+        context['nombre'] = 'Envíos'
+
+    return render(request, 'pages/funcionarios.html', context)

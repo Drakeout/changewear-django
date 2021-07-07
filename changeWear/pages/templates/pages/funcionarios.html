@@ -1,0 +1,119 @@
+{% extends 'pages/base.html' %}
+{% load static %}
+
+{% block content %}
+<main>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-1 col-md-3 col-xl-2 px-sm-2 px-0 bg-dark d-none d-sm-inline">
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100 ">
+                    <a href="{% url 'admin_page' 'inicio' %}" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                        <i class="fas fa-user fa-lg mx-auto "></i>
+                        <span class="fs-5 mx-auto">{{cliente}}</span>
+                    </a>
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                        <li class="nav-item">
+                            <a href="{% url 'admin_page' 'inicio' %}" class="nav-link align-middle px-0">
+                                <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline text-white">Inicio</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'admin_page' 'productos' %}" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline text-white">Productos</span></a>
+                        </li>
+                        <li>
+                            <a href="{% url 'admin_page' 'envios' %}" class="nav-link px-0 align-middle">
+                                <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline text-white">Envios</span></a>
+                        </li>
+                        
+                    </ul>
+                    
+                </div>
+            </div>
+            <div class="container d-sm-none">
+                <div class="d-flex justify-content-around my-3">
+                    <a href="{% url 'admin_page' 'inicio' %}" class="bg-dark text-white border rounded text-decoration-none px-3"><h3>Inicio</h3></a>
+                    <a href="{% url 'admin_page' 'productos' %}" class="bg-dark text-white border rounded text-decoration-none px-3"><h3>Productos</h3></a>
+                    <a href="{% url 'admin_page' 'envios' %}" class="bg-dark text-white border rounded text-decoration-none px-3"><h3>Envios</h3></a>
+                </div>
+            </div>
+            <div class="col">
+                <div class="container my-3 border rounded shadow-sm">
+                    {% if 'inicio' in request.path %}
+                        <!-- tipo dashboard -->
+                        <h1 class="display-4 mt-1 mb-2">{{nombre}}</h1>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="container border rounded-2 p-2 shadow-sm">
+                                        <div class="ms-2">
+                                                <div class="d-flex justify-content-around">
+                                                    <h1 class="display-2 ">{{compras.count|default_if_none:"0"}}</h1>
+                                                    <i class="fas fa-check fa-2x my-auto me-2"></i>
+                                                </div>
+                                                <small>Compras totales</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="container border rounded-2 p-2 shadow-sm">
+                                        <div class="ms-2">
+                                                <div class="d-flex justify-content-around">
+                                                    <h1 class="display-2 ">{{envios.count|default_if_none:"0"}}</h1>
+                                                    <i class="fas fa-truck fa-2x my-auto me-2"></i>
+                                                </div>
+                                                <small>Envíos totales</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="container border rounded shadow my-4">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Cliente</th>
+                                        <th>Fecha</th>
+                                        <th>Completado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for compra in compras %}
+                                        <tr>
+                                            <td>{{compra.cliente}}</td>
+                                            <td>{{compra.fecha|date:'d M Y'}}</td>
+                                            {% if compra.completado == True%}
+                                                <td>Si</td>
+                                            {%else%}
+                                                <td>No</td>
+                                            {%endif%}
+                                        </tr>
+                                    {%endfor%}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% elif 'productos' in request.path %}
+                        <!-- CRUD productos -->
+                        <h1 class="display-4 mt-2 mb-2">{{nombre}}</h1>
+                        <hr>
+                        <div class="container">
+                            <div class="d-flex flex-row">
+                                <h3>Agregar producto</h3>
+                                <button class="btn btn-primary ms-3">Agregar</button>
+                            </div>
+                            <div class="container">
+                                
+                            </div>
+                        </div>
+                    {% elif 'envios' in request.path %}
+                        <h1 class="display-4 mt-1 mb-2">{{nombre}}</h1>
+
+                        <!-- Envios -->
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

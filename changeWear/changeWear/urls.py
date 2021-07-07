@@ -41,6 +41,9 @@ urlpatterns = [
     path('contacto/', contacto_page, name='contacto_page'),
     path('empleo/', empleo_page, name='empleo_page'),
 
+    # admin
+    path('func/<action>/', admin_page, name='admin_page'),
+
     # api
     path('api/', include('api.urls')),
     path('admin/', admin.site.urls),
