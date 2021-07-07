@@ -323,19 +323,31 @@ def user_page(request, action):
 
 def admin_page(request, action):
     context = {}
-    envios = DireccionEnvio.objects.all()
-    context['envios'] = envios
-    compras = Compra.objects.all().filter(completado=True)
-    context['compras'] = compras
-    productos = Producto.objects.all()
-    context['productos'] = productos
+    try:
+        envios = DireccionEnvio.objects.all().filter(entregado=False)
+        context['envios'] = envios
+    except:
+        context['envios'] = None
+    try:
+        compras = Compra.objects.all().filter(completado=True)
+        context['compras'] = compras
+    except:
+        context['compras'] = None
+    try:
+        productos = Producto.objects.all()
+        context['productos'] = productos
+    except:
+        context['productos'] = None
 
+    
     if action == 'inicio':
         context['nombre'] = 'Inicio'
     elif action == 'productos':
         context['nombre'] = 'Productos'
     elif action == 'envios':
         context['nombre'] = 'Envíos'
+    elif action == 'compras':
+        context['nombre'] = 'Compras'
 
     return render(request, 'pages/funcionarios.html', context)
 
@@ -356,3 +368,31 @@ def preguntas_frecuentes(request):
     
     
     return render(request, 'pages/preguntas_frecuentes.html', context)
+def crud_producto(request, pk):
+    context = {}
+    form = ProductoForm()
+    try:
+        producto = Producto.objects.get(id=pk)
+        form = ProductoForm(instance=producto)
+        context['form'] = form
+        if request.method == 'POST':
+            form = ProductoForm(request.POST, request.FILES, instance=producto)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Producto agregado')
+            else:
+                messages.error(request, 'Error al guardar el producto')
+        
+    except:
+        context['form'] = form
+        if request.method == 'POST':
+            form = ProductoForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Producto agregado')
+            else:
+                messages.error(request, 'Error al guardar el producto')
+
+
+    
+    return render(request, 'pages/func-produc.html', context)

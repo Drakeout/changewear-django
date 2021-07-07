@@ -5,8 +5,8 @@
 <main>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+            <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark d-none d-sm-inline">
+                <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100 ">
                     <a href="{% url 'user_page' 'perfil' %}" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                         <i class="fas fa-user fa-lg mx-auto me-2"></i>
                         <span class="fs-5 d-none d-sm-inline">{{cliente}}</span>
@@ -32,6 +32,15 @@
                         </li>
                     </ul>
                     
+                </div>
+            </div>
+            <div class="container d-sm-none">
+                <div class="d-flex justify-content-around my-3">
+                    <a href="{% url 'user_page' 'inicio' %}" class="bg-dark text-white border rounded text-decoration-none px-1"><h3>Inicio</h3></a>
+                    <a href="{% url 'user_page' 'compras' %}" class="bg-dark text-white border rounded text-decoration-none px-1"><h3>Compras</h3></a>
+                    <a href="{% url 'user_page' 'envios' %}" class="bg-dark text-white border rounded text-decoration-none px-1"><h3>Envios</h3></a>
+                    <a href="{% url 'user_page' 'perfil' %}" class="bg-dark text-white border rounded text-decoration-none px-1"><h3>Perfil</h3></a>
+
                 </div>
             </div>
             <div class="col">
