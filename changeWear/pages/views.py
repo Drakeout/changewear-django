@@ -338,3 +338,21 @@ def admin_page(request, action):
         context['nombre'] = 'Envíos'
 
     return render(request, 'pages/funcionarios.html', context)
+
+    
+def preguntas_frecuentes(request):
+    context = {}
+    try:
+        cliente = request.user.cliente
+        compra, creada = Compra.objects.get_or_create(cliente=cliente, completado=False)
+        items = compra.productocompra_set.all()
+        
+        carro = compra.get_comprar_productos
+        context['carro'] = carro
+        context['items'] = items
+    except:
+        carro = None
+        items = None
+    
+    
+    return render(request, 'pages/preguntas_frecuentes.html', context)
