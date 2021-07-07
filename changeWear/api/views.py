@@ -1,21 +1,22 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from rest_framework import serializers,status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.parsers import JSONParser
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 # modelos
 from core.models import Producto
 from .serializers import ProductoSerializer
 
 
 # Create your views here.
-# @csrf_exempt
+@csrf_exempt
 @api_view(['GET', 'POST'])
-# Todos los productos
-def productos_ser(request):
 
+def productos_ser(request):
     if request.method == 'GET':
         productos = Producto.objects.all()
         serializer = ProductoSerializer(productos, many=True)
@@ -29,8 +30,9 @@ def productos_ser(request):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 @api_view(['GET'])
-# Por categoria
+
 def categoria_producto(request, pk):
     try:
         categoria = Producto.objects.filter(categoria = pk)
