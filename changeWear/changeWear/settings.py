@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     # Propias
     'core',
     'pages',
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
