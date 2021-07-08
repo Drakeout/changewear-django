@@ -38,6 +38,7 @@ urlpatterns = [
     path('user/<action>/', user_page, name='user_page'),
 
     path('vision/', vision_page, name='vision_page'),
+    path('cambios/', cambios_page, name='cambios_page'),
     path('contacto/', contacto_page, name='contacto_page'),
     path('empleo/', empleo_page, name='empleo_page'),
     path('preguntas_frecuentes/', preguntas_frecuentes, name='preguntas_frecuentes'),

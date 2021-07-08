@@ -251,6 +251,22 @@ def contacto_page(request):
 
     return render(request, 'pages/contacto.html', context)
 
+def cambios_page(request):
+    context = {}
+
+    try:
+        cliente = request.user.cliente
+        compra, creada = Compra.objects.get_or_create(cliente=cliente, completado=False)
+        items = compra.productocompra_set.all()
+        carro = compra.get_comprar_productos
+        context['carro'] = carro
+        context['items'] = items
+    except:
+        carro = None
+        items = None
+
+    return render(request, 'pages/cambios.html', context)
+
 def empleo_page(request):
     context = {}
 
