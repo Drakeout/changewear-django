@@ -1,7 +1,7 @@
 1-Tener instado Oracle XE
-2-Registrar Usuario en base de datos (info en archvio usuario_basedatos)
+2-Registrar Usuario en base de datos (info en archvio usuario_basedatos.txt)
 3-Iniciar la página principal
-3.1 - admin:changewear - password:admin
-4-En el footer hay un botón, "Poblar BD"
+3.1 Usuario Administrador - admin:changewear - password:admin
+4-PRIMERO: En el footer hay un botón, "Poblar BD"
 5-El proyecto está listo para ser visto
-6-A veces es necesario borrar las cookies del sistema
+(*A veces es necesario borrar las cookies del sistema*)
