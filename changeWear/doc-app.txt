@@ -1,0 +1,28 @@
+--3 aplicaciones principales
+	=> Changewear -> configuración general
+	=> Core	-> Aplicación de modelos, urls y forms
+		-> Solo el modelo y urls de la página
+		-> Se usan los modelos en pages
+		-> Admin -> urls
+		-> forms -> pages
+		-> decorator -> permisos -> pages
+	=> Pages -> Aplicación de paginas 
+		-> Todas las vista de las páginas con sus template
+		-> Aquí usamos los modelos y formularios
+		-> Aquí usamos en javascript el consumo de api
+	=> Api -> Apliación de api, serializer 
+		-> Views (endpoints api)
+		-> Aquí pasamos la api para Pages
+		--> Creación de tokens
+			--->
+
+--Funcionamiento de la página
+	=> Hay que registrar/iniciar sessión para usar la página
+	=> Agregar productos -> direccion -> pagar
+	=> Página de ususario -> Compras, envios e info personal
+--Funcionamineto para admin
+	=> Hacer log como admin
+	=> Página funcionario
+		-> Compras hechas
+		-> Envios
+		-> Crud Productos

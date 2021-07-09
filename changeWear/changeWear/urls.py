@@ -50,6 +50,8 @@ urlpatterns = [
 
     # api
     path('api/', include('api.urls')),
+
+    # admin
     path('admin/', admin.site.urls),
 
     # poblar base de datos
