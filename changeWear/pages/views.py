@@ -164,6 +164,7 @@ def logout_user(request):
 
 #TO-DO: Agregar condición para logeado y para clientes con decoradores
 @login_required(login_url='home_page')
+@usuarios_permitiado(roles_permitidos=['cliente'])
 def carro_page(request):
     cliente = request.user.cliente
     compra, creada = Compra.objects.get_or_create(cliente=cliente, completado=False)
@@ -179,7 +180,8 @@ def carro_page(request):
     context = {'items': items, 'compra': compra, 'carro':carro}
     return render(request, 'pages/carro.html', context)
 
-
+@login_required(login_url='home_page')
+@usuarios_permitiado(roles_permitidos=['cliente'])
 def direccion_page(request, pk):
     form = DireeccionForm()
     compra = Compra.objects.get(id=pk)
@@ -202,6 +204,7 @@ def direccion_page(request, pk):
     return render(request, 'pages/direccion.html', context)
 
 @login_required(login_url='home_page')
+@usuarios_permitiado(roles_permitidos=['cliente'])
 def pagar_page(request):
     #TO-DO: Agregar try and catch para cada variable, excepto cliente
     cliente = request.user.cliente
@@ -307,7 +310,8 @@ def updateItem(request):
 
     return JsonResponse('Item fue añadido', safe=False)
 
-
+@login_required(login_url='home_page')
+@usuarios_permitiado(roles_permitidos=['cliente'])
 def user_page(request, action):
     context = {}
     cliente = request.user.cliente
@@ -338,6 +342,8 @@ def user_page(request, action):
 
     return render(request, 'pages/user.html', context)
 
+@login_required(login_url='home_page')
+@usuarios_permitiado(roles_permitidos=['admin'])
 def admin_page(request, action):
     context = {}
     try:
@@ -385,6 +391,8 @@ def preguntas_frecuentes(request):
     
     
     return render(request, 'pages/preguntas_frecuentes.html', context)
+@login_required(login_url='home_page')
+@usuarios_permitiado(roles_permitidos=['admin'])
 def crud_producto(request, pk):
     context = {}
     form = ProductoForm()
