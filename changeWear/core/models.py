@@ -93,3 +93,11 @@ class DireccionEnvio(models.Model):
     
     def __str__(self):
         return str('Cliente: '+self.cliente.usuario.username + '- Dirección: ' + self.direccion)
+
+class DataEmpleo(models.Model):
+    correo = models.CharField(max_length=50)
+    nombrecompleto = models.CharField(max_length=100)
+    comentario = models.CharField(max_length=200)
+
+    def __str__(self):
+        return str(self.dataempleo.name)
