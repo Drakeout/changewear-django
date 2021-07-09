@@ -46,20 +46,29 @@ class Compra(models.Model):
 
     @property
     def get_comprar_total(self):
-        productos = self.productocompra_set.all()
-        total = sum([item.get_total for item in productos])
+        try:
+            productos = self.productocompra_set.all()
+            total = sum([item.get_total for item in productos])
+        except:
+            total = None
         return total
 
     @property
     def get_comprar_productos(self):
-        productos = self.productocompra_set.all()
-        total = sum([item.cantidad for item in productos])
+        try:
+            productos = self.productocompra_set.all()
+            total = sum([item.cantidad for item in productos])
+        except:
+            total = 0
         return total
 
     @property
     def get_productos(self):
-        productos = self.productocompra_set.all()
-        nombre = [item.ret_nombre for item in productos]
+        try:
+            productos = self.productocompra_set.all()
+            nombre = [item.ret_nombre for item in productos]
+        except:
+            nombre = 'Sin producto'
         return nombre
 
 class ProductoCompra(models.Model):
@@ -74,12 +83,18 @@ class ProductoCompra(models.Model):
     # Metodos para la suma
     @property
     def get_total(self):
-        total = int(self.producto.precio) * self.cantidad
+        try:
+            total = int(self.producto.precio) * self.cantidad
+        except:
+            total = 0
         return total
 
     @property
     def ret_nombre(self):
-        return self.producto.titulo
+        try: 
+            return self.producto.titulo
+        except:
+            return 'Sin producto'
 
 class DireccionEnvio(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.SET_NULL, blank=True, null=True)
@@ -102,6 +117,7 @@ class Contactanos(models.Model):
 
     def __str__(self):
         return str(self.correo)
+
 class DataEmpleo(models.Model):
     correo = models.CharField(max_length=50)
     nombrecompleto = models.CharField(max_length=100)

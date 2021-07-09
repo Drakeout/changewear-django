@@ -71,7 +71,7 @@
                                                     <h1 class="display-2 ">{{compras_completas.count|default_if_none:"0"}}</h1>
                                                     <i class="fas fa-clipboard-check fa-2x my-auto me-2"></i>
                                                 </div>
-                                                <small>Compras completadas</small>
+                                                <small>Envíos completadas</small>
                                             </a>
                                         </div>
                                     </div>
@@ -80,34 +80,35 @@
                         </div>
                         <hr>
                         <div class="container border rounded shadow mx-2 m-2">
-                            <h2 class="my-3">Ultima compra realizada</h2>
-                            <table class="table py-2">
+                            <h2 class="my-2">Ultimas compras</h2>
+                            <table class="table">
                                 <thead>
                                     <tr>
+                                        <th>Id</th>
                                         <th>Productos</th>
+                                        <th>Fecha</th>
                                         <th>Total</th>
-                                        <th>Estado</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% if compras%}
-                                    <tr>
-                                        <td>
-                                            {%for nombre in compras_completas.0.compra.get_productos%}
-                                                {{nombre}}
-                                            {% endfor %}
-                                        </td>
-                                        <td>${{compras.0.get_comprar_total}}</td>
-                                        <td>{{compras_completas.0.entregado}}</td>
-                                    </tr>
+                                    {%if compras == None%}
+                                        <tr><td>Sin Compras</td></tr>
                                     {%else%}
-                                    <tr>
-                                        <td>Sin compras realizadas</td>
-                                    </tr>
+                                        {%for compra in compras%}
+                                        <tr>
+                                            <td>{{compra.id}}</td>
+                                            <td>
+                                                {%for nombre in compra.get_productos%}
+                                                    {{nombre}}-
+                                                {% endfor %}
+                                            </td>
+                                            <td>{{compra.fecha|date:'d M Y'}}</td>
+                                            <td>{{compra.get_comprar_total}}</td>
+                                        </tr>
+                                        {%endfor%}
                                     {%endif%}
                                 </tbody>
                             </table>
-                            
                         </div>
                     {% elif 'compras' in request.path %}
                     <!-- Pagina compras -->
@@ -123,19 +124,22 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {%for compra in compras%}
-                                    <tr>
-                                        <td>{{compra.id}}</td>
-                                        <td>
-                                            {%for nombre in compra.get_productos%}
-                                                {{nombre}}-
-                                            {% endfor %}
-                                        </td>
-                                        <td>{{compra.fecha|date:'d M Y'}}</td>
-                                        <td>{{compra.get_comprar_total}}</td>
-                                    </tr>
-                                    {%endfor%}
-
+                                    {%if compras == None%}
+                                        <tr><td>Sin Compras</td></tr>
+                                    {%else%}
+                                        {%for compra in compras%}
+                                        <tr>
+                                            <td>{{compra.id}}</td>
+                                            <td>
+                                                {%for nombre in compra.get_productos%}
+                                                    {{nombre}}-
+                                                {% endfor %}
+                                            </td>
+                                            <td>{{compra.fecha|date:'d M Y'}}</td>
+                                            <td>{{compra.get_comprar_total}}</td>
+                                        </tr>
+                                        {%endfor%}
+                                    {%endif%}
                                 </tbody>
                             </table>
                         </div>
@@ -155,17 +159,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {%for envio in envios%}
-                                <tr>
-                                    <td>{{envio.id}}</td>
-                                    <td>{{envio.fecha_agregado|date:'d M Y'}}</td>
-                                    <td>{{envio.region}}</td>
-                                    <td>{{envio.comuna}}</td>
-                                    <td>{{envio.direccion}}</td>
-                                    <td>{{envio.entregado}}</td>
-                                </tr>
-                                {%endfor%}
 
+                                {%if envios == None%}
+                                        <tr><td>Sin Compras</td></tr>
+                                {%else%}
+                                    {%for envio in envios%}
+                                    <tr>
+                                        <td>{{envio.id}}</td>
+                                        <td>{{envio.fecha_agregado|date:'d M Y'}}</td>
+                                        <td>{{envio.region}}</td>
+                                        <td>{{envio.comuna}}</td>
+                                        <td>{{envio.direccion}}</td>
+                                        <td>{{envio.entregado}}</td>
+                                    </tr>
+                                    {%endfor%}
+                                {%endif%}
                             </tbody>
                         </table>
                     </div>

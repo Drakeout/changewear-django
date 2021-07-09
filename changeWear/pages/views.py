@@ -28,6 +28,8 @@ def home_page(request):
     except:
         carro = None
         items = None
+  
+    
     
     
     return render(request, 'pages/home.html', context)
@@ -164,7 +166,7 @@ def logout_user(request):
 
 #TO-DO: Agregar condición para logeado y para clientes con decoradores
 @login_required(login_url='home_page')
-@usuarios_permitiado(roles_permitidos=['cliente'])
+@usuarios_permitiado(roles_permitidos=['cliente', 'admin'])
 def carro_page(request):
     cliente = request.user.cliente
     compra, creada = Compra.objects.get_or_create(cliente=cliente, completado=False)
@@ -214,7 +216,7 @@ def pagar_page(request):
     if request.method == 'POST':
         compra_comp = Compra.objects.filter(id=compra.id).update(completado=True)
         messages.success(request, 'Producto comprado')
-
+        return redirect('home_page')
    
     
     context = {'items': items, 'compra': compra}
@@ -332,13 +334,23 @@ def updateItem(request):
 @usuarios_permitiado(roles_permitidos=['cliente'])
 def user_page(request, action):
     context = {}
-    cliente = request.user.cliente
-    context['cliente'] = cliente
-    compras = Compra.objects.all().filter(cliente=cliente, completado=True)
-    context['compras'] = compras
-    envios = DireccionEnvio.objects.all().filter(cliente=cliente)
-    context['envios'] = envios
-    
+    try:
+        cliente = request.user.cliente
+        context['cliente'] = cliente
+    except:
+        context['cliente'] = None
+    try:
+        compras = Compra.objects.all().filter(cliente=cliente, completado=True)
+        context['compras'] = compras
+    except:
+        context['compras'] = None
+    try:
+        envios = DireccionEnvio.objects.all().filter(cliente=cliente)
+        context['envios'] = envios
+    except:
+        context['envios'] = None
+
+        
     # mecanica carro
     try:
         cliente = request.user.cliente
@@ -368,17 +380,25 @@ def admin_page(request, action):
         envios = DireccionEnvio.objects.all().filter(entregado=False)
         context['envios'] = envios
     except:
-        context['envios'] = None
+        envios = 'Sin Envios'
+        context['envios'] = envios
     try:
         compras = Compra.objects.all().filter(completado=True)
         context['compras'] = compras
     except:
-        context['compras'] = None
+        compras = 'Sin compras'
+        compras.get_comprar_total = 0
+        compras.get_comprar_productos = 'None'
+        compras.get_productos = 'None'
+        context['compras'] = compras
     try:
         productos = Producto.objects.all()
         context['productos'] = productos
     except:
-        context['productos'] = None
+        productos = 'Sin productos'
+        productos.get_total = 0
+        productos.ret_nombre = 'None'
+        context['productos'] = productos
 
     
     if action == 'inicio':
