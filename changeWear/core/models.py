@@ -93,3 +93,12 @@ class DireccionEnvio(models.Model):
     
     def __str__(self):
         return str('Cliente: '+self.cliente.usuario.username + '- Dirección: ' + self.direccion)
+
+class Contactanos(models.Model):
+    
+    correo = models.CharField(max_length=60)
+    nombre = models.CharField(max_length=60)
+    comentario = models.CharField(max_length=200)
+
+    def __str__(self):
+        return str(self.correo)
