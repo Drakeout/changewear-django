@@ -41,6 +41,7 @@ urlpatterns = [
     path('contacto/', contacto_page, name='contacto_page'),
     path('empleo/', empleo_page, name='empleo_page'),
     path('preguntas_frecuentes/', preguntas_frecuentes, name='preguntas_frecuentes'),
+     path('formapago/', empleo_page, name='formapago_page'),
 
     # admin
     path('func/<action>/', admin_page, name='admin_page'),

@@ -396,3 +396,19 @@ def crud_producto(request, pk):
 
     
     return render(request, 'pages/func-produc.html', context)
+    
+def formapago_page(request):
+    context = {}
+    try:
+        cliente = request.user.cliente
+        compra, creada = Compra.objects.get_or_create(cliente=cliente, completado=False)
+        items = compra.productocompra_set.all()
+        
+        carro = compra.get_comprar_productos
+        context['carro'] = carro
+        context['items'] = items
+    except:
+        carro = None
+        items = None
+
+        return render(request, 'pages/formapago.html', context)
