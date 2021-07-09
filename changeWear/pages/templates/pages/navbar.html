@@ -36,10 +36,9 @@
         </a>
         <div class="dropdown-menu dropdown-menu-lg-left" aria-labelledby="navbarCarrito">
           <div id="carritoNavbar" class="p-3">
-            {% if items == None%}
+            {% if items.count < 0 %}
             <a class="dropdown-item" href="#">Sin productos</a>
             {%else%}
-
               {% for item in items%}
                 <a class="dropdown-item d-flex" href="{% url 'producto_page' item.producto.id %}">
                   <div class="me-2">{{item.cantidad}}</div>

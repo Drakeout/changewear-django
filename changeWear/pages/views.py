@@ -1,5 +1,6 @@
 from django.contrib.auth.models import Group
 from django.core.checks import messages
+from django.core.files.images import ImageFile
 from django.shortcuts import redirect, render
 from django.http import HttpResponse, JsonResponse
 from core.models import *
@@ -421,15 +422,15 @@ def poblar_bd(request):
     Producto.objects.all().delete()
 
     #Agrega productos a la base de datos
-    Producto.objects.create(titulo="Camisa Hombre Negra Dorada", precio='21000', categoria="HM", descripcion="Camisa de vestir de colores negro y dorado. Diseño oriental.", imagen="media/h-camisa.jpg")
-    Producto.objects.create(titulo="Pantalones Cuero Hombre Negros", precio='32000', categoria="HM", descripcion="Pantalones de cuero color negro. Cinturon no incluido.", imagen="media/h-pantalones.jpg")
-    Producto.objects.create(titulo="Zapatos Cuero Cafe", precio='45000', categoria="HM", descripcion="Zapatos de cuero color marron. Hebilla de plata. Disponible en todas tallas.", imagen="media/h-zapato.jpg")
-    Producto.objects.create(titulo="Blusa Multicolor Sparkle", precio='42000', categoria="MJ", descripcion="Top tipo blusa multicolor, refleja la luz. Spaghetti strap.", imagen="media/m-blusa.jpg")
-    Producto.objects.create(titulo="Vestido Mujer de Una Pieza", precio='15000', categoria="MJ", descripcion="Vestido negro y azul. Una pieza, disponible en todas las tallas.", imagen="media/m-vestido.jpg")
-    Producto.objects.create(titulo="Flats Negros Mujer", precio='66000', categoria="MJ", descripcion="Zapatos Flat de mujer, disponibles en Negro y Blanco. Taco bajo.", imagen="media/m-zapato.jpg")
-    Producto.objects.create(titulo="Buso Oso de Niño", precio='12500', categoria="NN", descripcion="Buso de niño unisex. Diseño de oso, disponible en verde, rojo y azul.", imagen="media/n-buso.jpg")
-    Producto.objects.create(titulo="Pantalones Dinosario de Niño", precio='14000', categoria="NN", descripcion="Pantalones de buso unisex para niños, diseño de dinosaurio, disponible en gris y negro.", imagen="media/n-pantalones.jpg")
-    Producto.objects.create(titulo="Zapatillas con Luces de Niño", precio='27000', categoria="NN", descripcion="Zapatillas unisex para niños, con luces fluorecentes en la suela. Baterias incluidas.", imagen="media/n-zapatilla.jpg")
+    Producto.objects.create(titulo="Camisa Hombre Negra Dorada", precio='21000', categoria="HM", descripcion="Camisa de vestir de colores negro y dorado. Diseño oriental.", imagen="h-camisa.jpg")
+    Producto.objects.create(titulo="Pantalones Cuero Hombre Negros", precio='32000', categoria="HM", descripcion="Pantalones de cuero color negro. Cinturon no incluido.", imagen="h-pantalones.jpg")
+    Producto.objects.create(titulo="Zapatos Cuero Cafe", precio='45000', categoria="HM", descripcion="Zapatos de cuero color marron. Hebilla de plata. Disponible en todas tallas.", imagen="h-zapato.jpg")
+    Producto.objects.create(titulo="Blusa Multicolor Sparkle", precio='42000', categoria="MJ", descripcion="Top tipo blusa multicolor, refleja la luz. Spaghetti strap.", imagen="m-blusa.jpg")
+    Producto.objects.create(titulo="Vestido Mujer de Una Pieza", precio='15000', categoria="MJ", descripcion="Vestido negro y azul. Una pieza, disponible en todas las tallas.", imagen="m-vestido.jpg")
+    Producto.objects.create(titulo="Flats Negros Mujer", precio='66000', categoria="MJ", descripcion="Zapatos Flat de mujer, disponibles en Negro y Blanco. Taco bajo.", imagen="m-zapato.jpg")
+    Producto.objects.create(titulo="Buso Oso de Niño", precio='12500', categoria="NN", descripcion="Buso de niño unisex. Diseño de oso, disponible en verde, rojo y azul.", imagen="n-buso.jpg")
+    Producto.objects.create(titulo="Pantalones Dinosario de Niño", precio='14000', categoria="NN", descripcion="Pantalones de buso unisex para niños, diseño de dinosaurio, disponible en gris y negro.", imagen="n-pantalones.jpg")
+    Producto.objects.create(titulo="Zapatillas con Luces de Niño", precio='27000', categoria="NN", descripcion="Zapatillas unisex para niños, con luces fluorecentes en la suela. Baterias incluidas.", imagen="n-zapatilla.jpg")
     
     #Redirige a la pagina catalogo de hombres
-    return redirect(to="pages:hombre")
+    return redirect('home_page')
