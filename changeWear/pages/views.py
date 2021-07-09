@@ -460,3 +460,19 @@ def poblar_bd(request):
     
     #Redirige a la pagina catalogo de hombres
     return redirect('home_page')
+    
+def formapago_page(request):
+    context = {}
+    try:
+        cliente = request.user.cliente
+        compra, creada = Compra.objects.get_or_create(cliente=cliente, completado=False)
+        items = compra.productocompra_set.all()
+        
+        carro = compra.get_comprar_productos
+        context['carro'] = carro
+        context['items'] = items
+    except:
+        carro = None
+        items = None
+
+        return render(request, 'pages/formapago.html', context)
