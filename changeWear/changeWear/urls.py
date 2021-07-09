@@ -51,6 +51,9 @@ urlpatterns = [
     path('api/', include('api.urls')),
     path('admin/', admin.site.urls),
 
+    # poblar base de datos
+    path('poblar_bd', poblar_bd, name="poblar_bd"),
+
 ]
 
 if settings.DEBUG:
