@@ -241,7 +241,8 @@ def vision_page(request):
 
 def contacto_page(request):
     context = {}
-
+    form = ContactoForm()
+    context['form'] = form
     try:
         cliente = request.user.cliente
         compra, creada = Compra.objects.get_or_create(cliente=cliente, completado=False)
@@ -252,6 +253,14 @@ def contacto_page(request):
     except:
         carro = None
         items = None
+
+    if request.method == 'POST':
+        form = ContactoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Aplicación laboral hecha')
+        else:
+            messages.error(request, 'La aplicación no pudo ser grabada')
 
     return render(request, 'pages/contacto.html', context)
 
@@ -273,7 +282,8 @@ def cambios_page(request):
 
 def empleo_page(request):
     context = {}
-
+    form = EmpleoForm()
+    context['form'] = form
     try:
         cliente = request.user.cliente
         compra, creada = Compra.objects.get_or_create(cliente=cliente, completado=False)
@@ -284,6 +294,14 @@ def empleo_page(request):
     except:
         carro = None
         items = None
+
+    if request.method == 'POST':
+        form = EmpleoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Aplicación laboral hecha')
+        else:
+            messages.error(request, 'La aplicación no pudo ser grabada')
 
     return render(request, 'pages/empleo.html', context)
 

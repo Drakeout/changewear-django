@@ -27,3 +27,12 @@ class DireeccionForm(forms.ModelForm):
         model = DireccionEnvio
         fields = ['direccion', 'region', 'comuna']
 
+class EmpleoForm(forms.ModelForm):
+    class Meta:
+        model = DataEmpleo
+        fields = '__all__'
+
+class ContactoForm(forms.ModelForm):
+    class Meta:
+        model = Contactanos
+        fields = '__all__'
